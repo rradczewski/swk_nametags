@@ -51,9 +51,6 @@ OFFSETS = [
 def drawNameTag(xOff, yOff, participant):
     firstNamePos = {"x": xOff+5.0, "y": yOff+12.5}
     lastNamePos = {"x": xOff+5.0, "y": yOff+21.5}
-    logoPos = {"x": xOff+75.0-LOGO_WIDTH, "y": yOff+11.5}
-    metaEventPos = {"x": xOff+5.0, "y": yOff+40.795}
-    metaLocationPos = {"x": xOff+5.0, "y": yOff+45.6}
 
     firstName = scribus.createText(firstNamePos["x"], firstNamePos["y"], 52, 9)
     scribus.setText(participant["Vorname"], firstName)
@@ -62,6 +59,12 @@ def drawNameTag(xOff, yOff, participant):
     lastName = scribus.createText(lastNamePos["x"], lastNamePos["y"], 52, 9)
     scribus.setText(participant["Nachname"], lastName)
     scribus.setStyle(STYLE_LAST_NAME, lastName)
+    drawNameTagBox(xOff, yOff)
+
+def drawNameTagBox(xOff, yOff):
+    logoPos = {"x": xOff+75.0-LOGO_WIDTH, "y": yOff+11.5}
+    metaEventPos = {"x": xOff+5.0, "y": yOff+40.795}
+    metaLocationPos = {"x": xOff+5.0, "y": yOff+45.6}
 
     metaEvent = scribus.createText(metaEventPos["x"], metaEventPos["y"], 70, 9)
     scribus.setText(EVENT_NAME, metaEvent)
@@ -91,6 +94,11 @@ def main(argv):
         if numOfParticipant % 10 == 0:
             scribus.newPage(-1)
             drawLines()
+
+    while numOfParticipant % 10 != 0:
+        relOffset = OFFSETS[numOfParticipant % 10]
+        drawNameTagBox(relOffset["x"], relOffset["y"])
+        numOfParticipant = numOfParticipant + 1
 
 def main_wrapper(argv):
     """The main_wrapper() function disables redrawing, sets a sensible generic
