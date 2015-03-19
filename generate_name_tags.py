@@ -50,21 +50,27 @@ OFFSETS = [
 
 def drawNameTag(xOff, yOff, participant):
     firstNamePos = {"x": xOff+5.0, "y": yOff+12.5}
-    lastNamePos = {"x": xOff+5.0, "y": yOff+21.5}
+    lastNamePos = {"x": xOff+5.0, "y": yOff+20.5}
 
-    firstName = scribus.createText(firstNamePos["x"], firstNamePos["y"], 52, 9)
+    drawNameTagBox(xOff, yOff)
+
+    firstName = scribus.createText(firstNamePos["x"], firstNamePos["y"], 70, 9)
     scribus.setText(participant["Vorname"], firstName)
     scribus.setStyle(STYLE_FIRST_NAME, firstName)
 
-    lastName = scribus.createText(lastNamePos["x"], lastNamePos["y"], 52, 9)
+    lastName = scribus.createText(lastNamePos["x"], lastNamePos["y"], 70, 9)
     scribus.setText(participant["Nachname"], lastName)
     scribus.setStyle(STYLE_LAST_NAME, lastName)
-    drawNameTagBox(xOff, yOff)
 
 def drawNameTagBox(xOff, yOff):
-    logoPos = {"x": xOff+75.0-LOGO_WIDTH, "y": yOff+11.5}
-    metaEventPos = {"x": xOff+5.0, "y": yOff+40.795}
-    metaLocationPos = {"x": xOff+5.0, "y": yOff+45.6}
+    logoPos = {"x": xOff+75.0-LOGO_WIDTH, "y": yOff+10.5}
+    metaEventPos = {"x": xOff+5.0, "y": yOff+39.795}
+    metaLocationPos = {"x": xOff+5.0, "y": yOff+43.6}
+
+    #swkLogo = scribus.createImage(xOff+5.0, yOff+5.0, 70, 40)
+    #scribus.loadImage("softwerkskammer.png", swkLogo)
+    #scribus.setScaleImageToFrame(scaletoframe=1, proportional=1, name=swkLogo)
+    #scribus.setProperty(swkLogo, "fillTransparency", 0.9)
 
     metaEvent = scribus.createText(metaEventPos["x"], metaEventPos["y"], 70, 9)
     scribus.setText(EVENT_NAME, metaEvent)
@@ -73,6 +79,10 @@ def drawNameTagBox(xOff, yOff):
     metaLocation = scribus.createText(metaLocationPos["x"], metaLocationPos["y"], 70, 9)
     scribus.setText(EVENT_LOCATION, metaLocation)
     scribus.setStyle(STYLE_META, metaLocation)
+
+    metaLogo = scribus.createImage(logoPos["x"], logoPos["y"], LOGO_WIDTH, LOGO_HEIGHT)
+    scribus.loadImage("logo.png", metaLogo)
+    scribus.setScaleImageToFrame(scaletoframe=1, proportional=1, name=metaLogo)
 
 def drawLines():
     scribus.createLine(0, 49.767, 210.0, 49.767)
