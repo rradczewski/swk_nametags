@@ -16,6 +16,6 @@ $(".member a:first-child").each(function(i, link) {
 console.log("Downloading Infos for "+members.length+" participants");
 var a = document.createElement("a");
 a.download = "participants.json";
-a.href = "data:application/json;base64,"+btoa(JSON.stringify(members));
+a.href = "data:application/json;charset=UTF-8;base64,"+btoa(JSON.stringify(members));
 a.click();
 })();
